@@ -5,7 +5,6 @@ from random import randint
 import requests
 import threading
 import json
-import torch
 # https://github.com/anderskm/gputil
 import GPUtil
 
