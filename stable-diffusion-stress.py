@@ -42,7 +42,7 @@ prompt_json_data = {
     "use_stable_diffusion_model": stable_diffusion_model,
     "clip_skip": "false",
     "use_vae_model": "",
-    "stream_progress_updates": "true",
+    "stream_progress_updates": "false",
     "stream_image_progress": "false",
     "show_only_filtered_image": "true",
     "block_nsfw": "false",
