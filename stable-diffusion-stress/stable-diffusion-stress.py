@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import argparse
 import time
 from random import randint
 import requests
@@ -7,6 +8,16 @@ import threading
 import json
 # https://github.com/anderskm/gputil
 import GPUtil
+
+def send_req(url,headers,data):
+    # Need equivalent to -o /dev/null
+    r = requests.post(url, data, headers)
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-p', '--param', nargs='?', const='default.param', default='default.param', help='Parameter file to use', required=False)
+parser.add_argument('-v', '--verbose', help='verbose', action='store_true')
+parser.add_argument('-d', '--debug', help='debug', action='store_true')
+args = parser.parse_args()
 
 # Port for the API, easy diffusion is 9000
 url_port = '9000'
@@ -21,42 +32,17 @@ word6=["chrome", "steel", "platinum", "bronze", "diamond", "ruby", "emerald", "c
 word7=["house", "Village", "town", "city", "island", "country", "Continent", "planet", "tree", "wall", "bush", "river", "sea", "ocean",]
 
 # sd-v1-5, sd_xl_base_1.0
-stable_diffusion_model = 'sd_xl_base_1.0'
+# stable_diffusion_model = 'sd_xl_base_1.0'
 
-def send_req(url,headers,data):
-    # Need equivalent to -o /dev/null
-    r = requests.post(url, data, headers)
+# reading parameters from a file
+with open(args.param) as f:
+    # data = f.read()
+    # print(data)
+    prompt_json_data = json.load(f)
 
-prompt_json_data = {
-    "prompt": 'Palamino horse with rainbow tatoo jumping over the moon',
-    "seed": 3628755307,
-    "used_random_seed": "false",
-    "negative_prompt": "",
-    "num_outputs": 1,
-    "num_inference_steps": 50,
-    "guidance_scale": 7.5,
-    "width": 1024,
-    "height": 1024,
-    "vram_usage_level": "balanced",
-    "sampler_name": "euler_a",
-    "use_stable_diffusion_model": stable_diffusion_model,
-    "clip_skip": "false",
-    "use_vae_model": "",
-    "stream_progress_updates": "false",
-    "stream_image_progress": "false",
-    "show_only_filtered_image": "true",
-    "block_nsfw": "false",
-    "output_format": "jpeg",
-    "output_quality": 90,
-    "output_lossless": "false",
-    "metadata_output_format": "none",
-    "active_tags": [],
-    "inactive_tags": [],
-    "use_face_correction": "GFPGANv1.4",
-    "use_upscale": "RealESRGAN_x4plus",
-    "upscale_amount": "4",
-    "enable_vae_tiling": "true"
-}
+print(prompt_json_data)
+
+# prompt_json_data |= { "use_stable_diffusion_model": stable_diffusion_model }
 
 number = 0
 while number < 10000000000:
