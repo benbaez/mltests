@@ -2,27 +2,31 @@
 
 ## Purpose is to stress the GPUs so that any hardware problems will show
 
-Nvidia stress tests and others like NVIDIA/Bopper and NVIDIA/deepops did not replicate issues we would see during traning.
+Nvidia stress tests and others like NVIDIA/Bopper and NVIDIA/deepops did not replicate issues we would see during training.
 
-stable-diffusion-stress.py requires "requests" and "json" module.
+stable-diffusion-stress.py requires "requests" and "json" module, which should be installed by default.
 
-### H100 testing requires the Juggernaut XL model:
+### Model usage
 
-https://civitai.com/models/133005?modelVersionId=471120
-
-'''
-./stable-diffusion-stress.py -p h100hyper.param
-'''
-
-### Instructions for installation
-
-#### Clone Easy Diffusion repo that support A100 GPUs.
-
-git clone https://github.com/benbaez/easydiffusion.git
+Modes are stored in easydiffusion/models/stable-diffusion folder.
 
 #### Download extra models
 
 Download sd_xl_base_1.0.safetensors from sd_xl_base_1.0.safetensors · stabilityai/stable-diffusion-xl-base-1.0 at main and place under ./easydiffusion/models/stable-diffusion/
+
+#### H100 testing requires the Juggernaut XL model:
+
+https://civitai.com/models/133005?modelVersionId=471120
+
+```
+./stable-diffusion-stress.py -p h100hyper.param
+```
+
+### Instructions for installation stable-diffusion-stress.py
+
+#### Clone Easy Diffusion repo that support A100 GPUs.
+
+git clone https://github.com/benbaez/easydiffusion.git
 
 #### Copy down to a separate directory the script to stress GPUs.
 
